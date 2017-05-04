@@ -1,0 +1,21 @@
+{% extends 'layouts/admin/base.html' %}
+
+{% block head_title %}
+    Delete {{ object }}
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body contain-lg">
+    <div class="card">
+        <div class="card-body">
+            <form class="floating-label" action="" method="post">{% csrf_token %}
+                <p>Are you sure you want to delete "{{ object }}"?</p>
+                <input class="btn btn-danger" type="submit" value="Confirm" />
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}
+

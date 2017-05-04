@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <title>{% block head_title %}Survey Management System{% endblock %}</title>
+    {% include "layouts/admin/include/head.html" %}
+    {% block extra_head %}
+    {% endblock %}
+</head>
+<body class="menubar-hoverable header-fixed full-content">
+    <!-- BEGIN HEADER-->
+    <header id="header" >
+        <div class="headerbar">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="headerbar-left">
+                <ul class="header-nav header-nav-options">
+                    <li class="header-nav-brand" >
+                        <div class="brand-holder">
+                            <a href="{% url 'survey:dashboard' %}">
+                                <span class="text-lg text-bold text-primary">SHARIFA ADMIN</span>
+                            </a>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="btn btn-icon-toggle menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="headerbar-right">
+                <ul class="header-nav header-nav-options">
+                    <li>
+                        <!-- Search form -->
+                        <form class="navbar-search" role="search">
+                            <div class="form-group">
+                                <input type="search" class="form-control" name="headerSearch" placeholder="Enter your keyword">
+                            </div>
+                            <button type="submit" class="btn btn-icon-toggle ink-reaction"><i class="fa fa-search"></i></button>
+                        </form>
+                    </li>
+                </ul><!--end .header-nav-options -->
+                <ul class="header-nav header-nav-profile">
+                    <li class="dropdown">
+                        <a href="javascript:void(0);" class="dropdown-toggle ink-reaction" data-toggle="dropdown">
+                            <img src="{% static 'assets/img/avatar1.jpg' %}" alt="" />
+                            <span class="profile-info">
+                                {{request.user.get_full_name}}
+                                <small> Administrator</small>
+                            </span>
+                        </a>
+                        <ul class="dropdown-menu animation-dock">
+                            <li class="dropdown-header">Config</li>
+                            <li><a href="#">My profile</a></li>
+                            <li><a href="#">My blog <span class="badge style-danger pull-right">16</span></a></li>
+                            <li><a href="#">My appointments</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="fa fa-fw fa-envelope"></i> Change Email</a></li>
+                            <li><a href="#"  data-toggle="modal" data-target="#logOutModal"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
+                        </ul><!--end .dropdown-menu -->
+                    </li><!--end .dropdown -->
+                </ul><!--end .header-nav-profile -->
+            </div><!--end #header-navbar-collapse -->
+        </div>
+    </header>
+    <!-- END HEADER-->
+
+    <div class="modal fade" id="logOutModal" tabindex="-1" role="dialog" aria-labelledby="logOutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="simpleModalLabel">Log Out</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Do you want to logout?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary"><a href="{% url 'survey:adminLogOut' %}"  style="text-decoration:none;">Logout</a></button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <!-- END SIMPLE MODAL MARKUP -->
+
+
+    <!-- BEGIN BASE-->
+    <div id="base">
+        {% if messages %}
+        {% for message in messages %}
+        <div id="toast-container" class="toast-bottom-right" aria-live="polite" role="alert">
+           <div class="toast toast-{{message.tags}}">
+               <div class="toast-message">{{ message }}</div>
+           </div>
+       </div>
+       {% endfor %}
+       {% endif %}
+       <!-- BEGIN CONTENT-->
+       <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div><!--end #content-->
+    <!-- END CONTENT -->
+    {% block menubar%}
+    <!-- BEGIN MENUBAR-->
+    <div id="menubar" class="menubar-inverse ">
+        <div class="menubar-fixed-panel">
+            <div>
+                <a class="btn btn-icon-toggle btn-default menubar-toggle" data-toggle="menubar" href="javascript:void(0);">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div class="expanded">
+                <a href="{% url 'survey:dashboard' %}">
+                    <span class="text-lg text-bold text-primary ">SHARIFA&nbsp;ADMIN</span>
+                </a>
+            </div>
+        </div>
+        <div class="menubar-scroll-panel">
+
+            <!-- BEGIN MAIN MENU -->
+            <ul id="main-menu" class="gui-controls">
+
+                <!-- BEGIN DASHBOARD -->
+                <li>
+                    <a href="{% url 'survey:dashboard' %}" id="dashboard">
+                        <div class="gui-icon"><i class="fa fa-home"></i></div>
+                        <span class="title">Dashboard</span>
+                    </a>
+                </li><!--end /menu-li -->
+                <!-- END DASHBOARD -->
+
+                <li>
+                    <a href="#" id="siteConfig">
+                        <div class="gui-icon"><i class="fa fa-gears"></i></div>
+                        <span class="title">Site Config</span>
+                    </a>
+                </li><!--end /menu-li -->
+
+                <li>
+                    <a href="#" id="staff">
+                        <div class="gui-icon"><i class="fa fa-users"></i></div>
+                        <span class="title">Staff</span>
+                    </a>
+                </li><!--end /menu-li -->
+
+                <li>
+                    <a href="#" id="user">
+                        <div class="gui-icon"><i class="fa fa-users"></i></div>
+                        <span class="title">User</span>
+                    </a>
+                </li><!--end /menu-li -->
+
+
+            </ul><!--end .main-menu -->
+            <!-- END MAIN MENU -->
+
+            <div class="menubar-foot-panel">
+                <small class="no-linebreak hidden-folded">
+                    <span class="opacity-75">Copyright &copy; 2016</span> <strong>Prixa</strong>
+                </small>
+            </div>
+        </div><!--end .menubar-scroll-panel-->
+    </div><!--end #menubar-->
+    <!-- END MENUBAR -->
+    {% endblock menubar %}
+    </div><!--end #base-->
+<!-- END BASE -->
+
+    {% include "layouts/admin/include/javascript.html" %}
+    <script type="text/javascript">
+        $(function(){
+            {% if messages %}
+            toastr.clear();
+            {% for message in messages %}
+            toastr.options.closeButton = true;
+            toastr.options.progressBar = true;
+            toastr.options.debug = false;
+            toastr.options.positionClass = 'toast-bottom-right';
+            toastr.options.showDuration = 333;
+            toastr.options.hideDuration = 333;
+            toastr.options.timeOut = 4000;
+            toastr.options.extendedTimeOut = 4000;
+            toastr.options.showEasing = 'swing';
+            toastr.options.hideEasing = 'swing';
+            toastr.options.showMethod = 'slideDown';
+            toastr.options.hideMethod = 'slideUp';
+            toastr.{{message.tags}}('{{message}}', '');
+            {% endfor %}
+            {% endif %}
+        });
+
+    </script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+</body>
+</html>
+
+
+
+
+
+
