@@ -50,7 +50,7 @@
                     <li class="header-nav-brand" >
                         <div class="brand-holder">
                             <a href="{% url 'survey:dashboard' %}">
-                                <span class="text-lg text-bold text-primary">SHARIFA ADMIN</span>
+                                <span class="text-lg text-bold text-primary">Survey Management System</span>
                             </a>
                         </div>
                     </li>
@@ -165,7 +165,7 @@
             </div>
             <div class="expanded">
                 <a href="{% url 'survey:dashboard' %}">
-                    <span class="text-lg text-bold text-primary ">SHARIFA&nbsp;ADMIN</span>
+                    <span class="text-lg text-bold text-primary ">Survey Management System</span>
                 </a>
             </div>
         </div>
@@ -197,7 +197,7 @@
                 </li><!--end /menu-li -->
 
                 <li>
-                    <a href="#" id="staffs">
+                    <a href="{% url 'survey:staffList' %}" id="staffs">
                         <div class="gui-icon"><i class="fa fa-users"></i></div>
                         <span class="title">Staffs</span>
                     </a>

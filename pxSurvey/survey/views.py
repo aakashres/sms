@@ -1,5 +1,5 @@
 from django.views.generic import View, ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView, FormView
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -16,6 +16,7 @@ from .models import *
 from .forms import *
 
 from fobi.models import *
+from fobi.contrib.plugins.form_handlers.db_store.models import *
 
 
 class AdminLogInView(View):
@@ -60,7 +61,7 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
     model = User
     template_name = 'survey/staffCreate.html'
     form_class = StaffForm
-    success_url = reverse_lazy("survey:dashboard")
+    success_url = reverse_lazy("survey:staffList")
     success_message = "Staff Successfully Added"
 
     def post(self, request, *args, **kwargs):
@@ -73,6 +74,7 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
             user.save()
             grp = Group.objects.get(name='Staff')
             grp.user_set.add(user)
+            messages.success(request, "Staff Added Successfully")
         return HttpResponseRedirect(self.success_url)
 
 
@@ -120,3 +122,16 @@ class FormEntryListView(ListView):
     model = FormEntry
     template_name = 'survey/formList.html'
     context_object_name = 'formEntries'
+
+
+class FormEntryChartView(View):
+    def get(self, request, **kwargs):
+        pk = kwargs['pk']
+        formEntry = get_object_or_404(FormEntry, pk=pk)
+        if SavedFormDataEntry.objects.filter(form_entry=formEntry):
+            savedFormEntiers = SavedFormDataEntry.objects.filter(
+                form_entry=formEntry)
+        print(dir(formEntry))
+        context = {
+        }
+        return render(request, 'survey/formCharts.html', context)

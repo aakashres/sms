@@ -1,0 +1,65 @@
+{% extends 'layouts/admin/base.html' %}
+{% load staticfiles %}
+
+{% block head_title %}
+    {{block.super}} | Staff List
+{% endblock %}
+
+{%block extra_head %}
+{% endblock %}
+
+{% block content %}
+<section>
+<div class="section-body">
+<h2>Staff List</h2>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h4>Donut chart</h4>
+                </div><!--end .col -->
+                <div class="col-lg-3 col-md-4">
+                    <article class="margin-bottom-xxl">
+                        <p>This really couldn't be easier. Create a Donut chart using <code>Morris.Donut(options)</code></p>
+                    </article>
+                </div><!--end .col -->
+                <div class="col-lg-offset-1 col-md-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="morris-donut-graph" class="height-6" data-colors="#9C27B0,#2196F3,#0aa89e,#FF9800"></div>
+                        </div><!--end .card-body -->
+                    </div><!--end .card -->
+                    <em class="text-caption">Donut chart</em>
+                </div><!--end .col -->
+            </div><!--end .row -->
+        </div>
+    </div>
+</div>
+<br/>
+</section>
+{% endblock %}
+
+{% block extra_js%}
+<script type="text/javascript">
+    $('#staff').addClass('active')
+</script>
+
+<script src="{% static 'assets/js/libs/raphael/raphael-min.js' %}"></script>
+<script src="{% static 'assets/js/libs/morris.js/morris.min.js' %}"></script>
+<script type="text/javascript">
+Morris.Donut({
+    element: 'morris-donut-graph',
+    data: [
+        {value: 70, label: 'foo', formatted: 'at least 70%'},
+        {value: 15, label: 'bar', formatted: 'approx. 15%'},
+        {value: 10, label: 'baz', formatted: 'approx. 10%'},
+        {value: 5, label: 'A really really long label', formatted: 'at most 5%'}
+    ],
+    colors: $('#morris-donut-graph').data('colors').split(','),
+    formatter: function (x, data) {
+        return data.formatted;
+    }
+});
+
+</script>
+{% endblock %}

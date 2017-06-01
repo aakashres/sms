@@ -17,7 +17,7 @@
                     <li class="header-nav-brand" >
                         <div class="brand-holder">
                             <a href="{% url 'survey:dashboard' %}">
-                                <span class="text-lg text-bold text-primary">SHARIFA ADMIN</span>
+                                <span class="text-lg text-bold text-primary">Survey Management System</span>
                             </a>
                         </div>
                     </li>
@@ -114,7 +114,7 @@
             </div>
             <div class="expanded">
                 <a href="{% url 'survey:dashboard' %}">
-                    <span class="text-lg text-bold text-primary ">SHARIFA&nbsp;ADMIN</span>
+                    <span class="text-lg text-bold text-primary ">Survey Management System</span>
                 </a>
             </div>
         </div>
@@ -133,23 +133,23 @@
                 <!-- END DASHBOARD -->
 
                 <li>
-                    <a href="#" id="siteConfig">
+                    <a href="{% url 'fobi.dashboard' %}" id="forms">
                         <div class="gui-icon"><i class="fa fa-gears"></i></div>
-                        <span class="title">Site Config</span>
+                        <span class="title">Forms</span>
                     </a>
                 </li><!--end /menu-li -->
-
+                <!--
                 <li>
-                    <a href="#" id="staff">
+                    <a href="{% url 'fobi.form_wizards_dashboard' %}" id="wizards">
                         <div class="gui-icon"><i class="fa fa-users"></i></div>
-                        <span class="title">Staff</span>
+                        <span class="title">Wizards</span>
                     </a>
-                </li><!--end /menu-li -->
+                </li>--><!--end /menu-li -->
 
                 <li>
-                    <a href="#" id="user">
+                    <a href="{% url 'survey:staffList' %}" id="staffs">
                         <div class="gui-icon"><i class="fa fa-users"></i></div>
-                        <span class="title">User</span>
+                        <span class="title">Staffs</span>
                     </a>
                 </li><!--end /menu-li -->
 
