@@ -80,16 +80,10 @@
                             <img src="{% static 'assets/img/avatar1.jpg' %}" alt="" />
                             <span class="profile-info">
                                 {{request.user.get_full_name}}
-                                <small> Administrator</small>
+                                <small>{{request.user.username}} </small>
                             </span>
                         </a>
                         <ul class="dropdown-menu animation-dock">
-                            <li class="dropdown-header">Config</li>
-                            <li><a href="#">My profile</a></li>
-                            <li><a href="#">My blog <span class="badge style-danger pull-right">16</span></a></li>
-                            <li><a href="#">My appointments</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#"><i class="fa fa-fw fa-envelope"></i> Change Email</a></li>
                             <li><a href="#"  data-toggle="modal" data-target="#logOutModal"><i class="fa fa-fw fa-power-off text-danger"></i> Logout</a></li>
                         </ul><!--end .dropdown-menu -->
                     </li><!--end .dropdown -->
@@ -188,13 +182,13 @@
                         <span class="title">Forms</span>
                     </a>
                 </li><!--end /menu-li -->
-
+                <!--
                 <li>
                     <a href="{% url 'fobi.form_wizards_dashboard' %}" id="wizards">
                         <div class="gui-icon"><i class="fa fa-users"></i></div>
                         <span class="title">Wizards</span>
                     </a>
-                </li><!--end /menu-li -->
+                </li>--><!--end /menu-li -->
 
                 <li>
                     <a href="{% url 'survey:staffList' %}" id="staffs">

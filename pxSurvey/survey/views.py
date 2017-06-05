@@ -18,6 +18,13 @@ from .forms import *
 from fobi.models import *
 from fobi.contrib.plugins.form_handlers.db_store.models import *
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class LoginMixin(LoginRequiredMixin):
+    login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
+
 
 class AdminLogInView(View):
     def get(self, request):
@@ -44,7 +51,7 @@ class AdminLogInView(View):
         return render(request, 'survey/adminLogIn.html', context)
 
 
-class AdminLogOutView(View):
+class AdminLogOutView(LoginMixin, View):
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_authenticated():
@@ -53,11 +60,11 @@ class AdminLogOutView(View):
         return redirect('survey:adminLogIn')
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginMixin, TemplateView):
     template_name = 'survey/dashboard.html'
 
 
-class StaffCreateView(SuccessMessageMixin, CreateView):
+class StaffCreateView(LoginMixin, SuccessMessageMixin, CreateView):
     model = User
     template_name = 'survey/staffCreate.html'
     form_class = StaffForm
@@ -78,7 +85,7 @@ class StaffCreateView(SuccessMessageMixin, CreateView):
         return HttpResponseRedirect(self.success_url)
 
 
-class StaffEmailChangeView(SuccessMessageMixin, FormView):
+class StaffEmailChangeView(LoginMixin, SuccessMessageMixin, FormView):
     template_name = 'survey/staffEmailChange.html'
     form_class = EmailForm
     success_url = reverse_lazy("survey:staffList")
@@ -95,7 +102,7 @@ class StaffEmailChangeView(SuccessMessageMixin, FormView):
         return super(StaffEmailChangeView, self).form_valid(form, **kwargs)
 
 
-class StaffToggleGroupView(View):
+class StaffToggleGroupView(LoginMixin, View):
     def get(self, request, **kwargs):
         pk = kwargs['pk']
         user = User.objects.get(pk=pk)
@@ -112,19 +119,19 @@ class StaffToggleGroupView(View):
         return redirect(reverse_lazy("survey:staffList"))
 
 
-class StaffListView(ListView):
+class StaffListView(LoginMixin, ListView):
     model = User
     template_name = 'survey/staffList.html'
     context_object_name = 'staffs'
 
 
-class FormEntryListView(ListView):
+class FormEntryListView(LoginMixin, ListView):
     model = FormEntry
     template_name = 'survey/formList.html'
     context_object_name = 'formEntries'
 
 
-class FormEntryChartView(View):
+class FormEntryChartView(LoginMixin, View):
     def get(self, request, **kwargs):
         pk = kwargs['pk']
         formEntry = get_object_or_404(FormEntry, pk=pk)
