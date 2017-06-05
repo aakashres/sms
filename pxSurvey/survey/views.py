@@ -43,7 +43,7 @@ class AdminLogInView(View):
             if user and user.is_active:
                 messages.success(request, "Logged In Successfully")
                 login(request, user)
-                return redirect('survey:dashboard_2')
+                return redirect('survey:dashboard')
         messages.warning(request, "Log In Failure")
         context = {
             'form': form,
